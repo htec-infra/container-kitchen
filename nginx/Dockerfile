@@ -1,4 +1,4 @@
-ARG VERSION=1.18.0
+ARG VERSION
 
 FROM nginx:$VERSION as base
 
