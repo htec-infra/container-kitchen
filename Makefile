@@ -1,8 +1,8 @@
 
 .PHONY: cyberchef
 cyberchef:
-	docker build -t htec/cyberchef:latest -f cyberchef/Dockerfile .
+	./docker-ops.sh cyberchef latest
 
 .PHONY: nginx
 nginx:
-	docker build -t htec/nginx:latest -f nginx/Dockerfile .
+	./docker-ops.sh nginx 1.19.7
