@@ -1,8 +1,8 @@
 
 .PHONY: cyberchef
 cyberchef:
-	./docker-ops.sh cyberchef latest
+	./docker-ops.sh cyberchef
 
 .PHONY: nginx
 nginx:
-	./docker-ops.sh nginx 1.19.7
+	./docker-ops.sh nginx

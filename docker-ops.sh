@@ -2,7 +2,8 @@
 
 IMAGE_NAME=${1}
 
-IMAGE_VERSION=${2}
+# shellcheck disable=SC2210
+IMAGE_VERSION=$(cat ./"${IMAGE_NAME}"/VERSION 2>/dev/null || echo "${2}")
 
 LOCAL_IMAGE="local/${IMAGE_NAME}:${IMAGE_VERSION}"
 
