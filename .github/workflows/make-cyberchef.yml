@@ -1,4 +1,4 @@
-name: Make Nginx docker
+name: Make Cyberchef docker
 
 on:
   push:
