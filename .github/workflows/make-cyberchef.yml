@@ -1,0 +1,25 @@
+name: Make Nginx docker
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - "cyberchef/**"
+  pull_request:
+    types: [closed]
+    branches: [ master ]
+    paths:
+      - "cyberchef/**"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+          username: ${{ secrets.HTEC_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.HTEC_DOCKERHUB_TOKEN }}
+    - name: Build and Push the Docker image
+      run: make cyberchef
