@@ -13,3 +13,8 @@ nginx:
 .PHONY: clamav
 clamav:
 	./docker-ops.sh clamav
+
+
+.PHONY: pdf-generator
+pdf-generator:
+	./docker-ops.sh pdf-generator
