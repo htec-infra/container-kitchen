@@ -15,6 +15,9 @@ build() {
 }
 
 push() {
+  if [ "${LOCAL_TEST}" == "true" ]; then
+      return
+  fi
   for REPO in "${DOCKER_REPOS[@]}"; do
     NEW_IMAGE="$REPO/${IMAGE_NAME}:${IMAGE_VERSION}"
     docker tag "local/${IMAGE_NAME}:${IMAGE_VERSION}" "${NEW_IMAGE}"
@@ -26,7 +29,7 @@ push() {
 }
 
 cleanup() {
-  if [ "${SKIP_CLEANUP}" == "true" ]; then
+  if [ "${LOCAL_TEST}" == "true" ]; then
       echo "Skipping cleanup"
   else
       docker rmi "${LOCAL_IMAGE}"

@@ -8,6 +8,7 @@ nginx:
 	./docker-ops.sh nginx
 
 .PHONY: terraform
+terraform:
 	./docker-ops.sh terraform
 
 .PHONY: clamav
