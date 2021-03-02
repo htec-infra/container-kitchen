@@ -3,7 +3,6 @@ ARG VERSION
 ENV TERRAFORM_VERSION=${VERSION:-0.14.1}
 
 RUN apk add --update bash curl openssl grep
-
 #
 # Terraform
 #
@@ -14,7 +13,7 @@ RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin
 RUN rm -f *.zip
 
 FROM gcr.io/distroless/base-debian10
-COPY --from=build --chown=nonroot:nonroot /bin/terraform /app/terraform
+COPY --from=build --chown=nonroot:nonroot /bin/terraform /bin/terraform
 USER nonroot
-WORKDIR /app
+WORKDIR /home/nonroot
 ENTRYPOINT ["terraform"]
