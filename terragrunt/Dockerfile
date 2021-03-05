@@ -1,6 +1,6 @@
+ARG VERSION=0.14.1
+
 FROM alpine:latest as build
-ARG VERSION
-ENV TERRAFORM_VERSION=${VERSION:-0.14.1}
 
 RUN apk add --update bash curl openssl grep
 #
@@ -13,7 +13,7 @@ RUN chmod +x /bin/terragrunt
 # Cleanup ZIP files
 RUN rm -f *.zip
 
-FROM htec/terraform:${TERRAFORM_VERSION}
+FROM htec/terraform:$VERSION
 COPY --from=build --chown=nonroot:nonroot /bin/terragrunt /bin/terragrunt
 USER nonroot
 WORKDIR /home/nonroot
