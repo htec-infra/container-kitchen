@@ -15,9 +15,9 @@ terraform:
 terragrunt:
 	./docker-ops.sh terragrunt
 
-.PHONY: terraform-utilities
-terraform-utilities:
-	./docker-ops.sh terraform-utilities
+.PHONY: terraform-utils
+terraform-utils:
+	./docker-ops.sh terraform-utils
 
 .PHONY: clamav
 clamav:

@@ -2,6 +2,7 @@ FROM alpine:latest as build
 ARG VERSION
 ENV TERRAFORM_VERSION=${VERSION:-0.14.1}
 
+RUN apk add --update bash curl openssl grep
 #
 # Terragrunt installer
 #
