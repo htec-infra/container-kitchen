@@ -1,4 +1,4 @@
-name: Make Terraform docker
+name: Make Terragrunt docker
 
 on:
   push:
