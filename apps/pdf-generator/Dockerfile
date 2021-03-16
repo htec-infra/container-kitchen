@@ -1,7 +1,7 @@
 FROM node:10-alpine
 
-RUN apk update && apk upgrade
-
+RUN apk update
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
     udev \
     ttf-freefont \
@@ -20,7 +20,7 @@ RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
     && mkdir -p /home/pptruser/Downloads /app \
     && chown -R pptruser:pptruser /home/pptruser \
     && chown -R pptruser:pptruser /app
-
+# hadolint ignore=DL3003
 RUN cd /tmp && \
     git clone https://github.com/alvarcarto/url-to-pdf-api && \
     cp -r /tmp/url-to-pdf-api/* /app
