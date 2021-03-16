@@ -5,11 +5,13 @@ on:
     branches: [ master ]
     paths:
       - "apps/cyberchef/**"
+      - "!**/README.md"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
       - "apps/cyberchef/**"
+      - "!**/README.md"
 
 jobs:
   build-and-push:

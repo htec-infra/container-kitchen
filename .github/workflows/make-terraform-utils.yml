@@ -5,11 +5,13 @@ on:
     branches: [ master ]
     paths:
       - "apps/terraform-utils/**"
+      - "!**/README.md"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
       - "apps/terraform-utils/**"
+      - "!**/README.md"
 
 jobs:
   build-and-push:
