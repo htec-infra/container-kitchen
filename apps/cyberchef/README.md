@@ -1,7 +1,7 @@
 # Distroless CyberChef docker image
 
 ## Overview
-Nginx docker image is built on top of `htec/nginx:1.18.0` distroless/rootless image. The main nginx process is configured to run
+CyberChef docker image is built on top of `htec/nginx:1.18.0` distroless/rootless image. The main nginx process is configured to run
 as user 1001, hence the app is not accessible on port 80 but 8080 instead.
 
 ## Usage
