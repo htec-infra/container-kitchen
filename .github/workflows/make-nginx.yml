@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "nginx/**"
+      - "apps/nginx/**"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
-      - "nginx/**"
+      - "apps/nginx/**"
 
 jobs:
   build-and-push:

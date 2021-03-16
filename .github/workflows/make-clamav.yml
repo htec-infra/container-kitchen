@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "clamav/**"
+      - "apps/clamav/**"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
-      - "clamav/**"
+      - "apps/clamav/**"
 
 jobs:
   build-and-push:

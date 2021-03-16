@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "pdf-generator/**"
+      - "apps/pdf-generator/**"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
-      - "pdf-generator/**"
+      - "apps/pdf-generator/**"
 
 jobs:
   build-and-push:

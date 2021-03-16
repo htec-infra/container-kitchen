@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "cyberchef/**"
+      - "apps/cyberchef/**"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
-      - "cyberchef/**"
+      - "apps/cyberchef/**"
 
 jobs:
   build-and-push:
