@@ -1,10 +1,26 @@
-# Base Images
+# Rootless/Distroless Docker images
 
-- NGINX
+## Overview
+Docker images available on Docker Hub or similar Docker registries are developed mainly for testing purposes. 
+Main process is executed as a root user, and a bunch of unused libraries remain installed on the docker image although 
+it's not utilized in the main process.
 
-# Utility Apps
+Idea with this repository is to build and distribute rootless docker images built on top of distroless docker images 
+(if that's possible) that can be used for building more sophisticated images in the future.
+Dockerfiles are defined only with the most important libraries and configuration files, hence all good practices are 
+fulfilled and attacking surface is minimal.
 
-- ClamAV
-- CyberChef (Credits: https://github.com/gchq/CyberChef)
-- Terraform (Terraform + Terragrunt)
-- PDF Generator (Credits: https://github.com/alvarcarto/url-to-pdf-api)
+## Applications
+
+### Base images for Web apps
+- [NGINX](https://github.com/nginxinc) unprivileged
+
+### Utility Apps
+
+- [ClamAV](https://www.clamav.net/) - OpenSource AntiVirus engine
+- [CyberChef](https://github.com/gchq/CyberChef) - Swiss-Army Knife tool
+- [Terraform](https://www.terraform.io/) - Infrastructure As Code tool
+- [Terragrunt](https://terragrunt.gruntwork.io/) (based on Terraform image) - Wrapper for Terraform configuration
+- [PDF Generator](https://github.com/alvarcarto/url-to-pdf-api) - Web page PDF rendering tool
+
+
