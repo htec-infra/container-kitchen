@@ -21,6 +21,7 @@ fulfilled and attacking surface is minimal.
 - [CyberChef](https://github.com/gchq/CyberChef) - Swiss-Army Knife tool
 - [Terraform](https://www.terraform.io/) - Infrastructure As Code tool
 - [Terragrunt](https://terragrunt.gruntwork.io/) (based on Terraform image) - Wrapper for Terraform configuration
+- Terraform Utils - Bundle of terraform linter & security check tools  
 - [PDF Generator](https://github.com/alvarcarto/url-to-pdf-api) - Web page PDF rendering tool
 
 ## Development
@@ -31,9 +32,10 @@ fulfilled and attacking surface is minimal.
 
 ### Usage
 
-Script `infra/docker-ops.sh` is configured to clean up all images after build. Run locally using `LOCAL_TEST=true` 
+> **NOTE:**
+The script `infra/docker-ops.sh` is configured to clean up all images after build. Run locally using `LOCAL_TEST=true` 
 in order to keep built image available after the script ended.
 
-```
+```shell
 $ LOCAL_TEST=true make <app_name>
 ```
