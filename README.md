@@ -28,8 +28,8 @@ fulfilled and attacking surface is minimal.
 
 ### Prerequisites
 
-- Docker
-- Pre-commit hooks [[Install](https://pre-commit.com/#install)]
+- [docker](https://docs.docker.com/engine/install/)
+- [pre-commit](https://pre-commit.com/#install)
 ### Usage
 
 > **NOTE:**
