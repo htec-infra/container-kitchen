@@ -6,3 +6,12 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
       - id: detect-aws-credentials
+-   repo: local
+    hooks:
+      -   id: dockerlint
+          name: Dockerfile lint with hadolint
+          description: Dockerfile lint with hadolint
+          entry: hadolint/hadolint hadolint
+          language: docker_image
+          files: Dockerfile
+
