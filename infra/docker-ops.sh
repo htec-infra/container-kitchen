@@ -16,6 +16,7 @@ build() {
 
 push() {
   if [ "${LOCAL_TEST}" == "true" ]; then
+      echo "Skipping 'docker push' for local testing."
       return
   fi
   for REPO in "${DOCKER_REPOS[@]}"; do
@@ -37,5 +38,5 @@ cleanup() {
 
 }
 
-build && push  && cleanup
+build && push && cleanup
 
