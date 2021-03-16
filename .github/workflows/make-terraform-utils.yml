@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "apps/terraform-utils/**"
+      - "terraform-utils/**"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
-      - "apps/terraform-utils/**"
+      - "terraform-utils/**"
 
 jobs:
   build-and-push:
