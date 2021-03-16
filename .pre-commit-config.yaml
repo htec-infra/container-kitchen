@@ -4,3 +4,5 @@ repos:
     hooks:
       - id: check-case-conflict
       - id: check-merge-conflict
+      - id: detect-private-key
+      - id: detect-aws-credentials
