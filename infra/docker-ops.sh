@@ -11,7 +11,7 @@ LOCAL_IMAGE="local/${IMAGE_NAME}:${IMAGE_VERSION}"
 DOCKER_REPOS=("htec" "public.ecr.aws/htec")
 
 build() {
-  docker build -t "${LOCAL_IMAGE}" --build-arg "VERSION=${IMAGE_VERSION}" "${IMAGE_NAME}/"
+  docker build -t "${LOCAL_IMAGE}" --build-arg "VERSION=${IMAGE_VERSION}" "../apps/${IMAGE_NAME}/"
 }
 
 push() {
