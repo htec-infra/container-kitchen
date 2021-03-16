@@ -24,3 +24,9 @@ docker run -it --rm -p 8080:8080 htec/cyberchef
 ```
 
 Open your browser on http://localhost:8080/
+
+## Live DEMO
+
+---
+
+https://cyberchef.apps.htec.rs
