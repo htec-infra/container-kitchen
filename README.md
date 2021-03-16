@@ -23,4 +23,17 @@ fulfilled and attacking surface is minimal.
 - [Terragrunt](https://terragrunt.gruntwork.io/) (based on Terraform image) - Wrapper for Terraform configuration
 - [PDF Generator](https://github.com/alvarcarto/url-to-pdf-api) - Web page PDF rendering tool
 
+## Development
 
+### Prerequisites
+
+- Docker
+
+### Usage
+
+Script `infra/docker-ops.sh` is configured to clean up all images after build. Run locally using `LOCAL_TEST=true` 
+in order to keep built image available after the script ended.
+
+```
+$ LOCAL_TEST=true make <app_name>
+```
