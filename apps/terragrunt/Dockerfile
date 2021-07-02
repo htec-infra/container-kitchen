@@ -1,8 +1,10 @@
 ARG VERSION=0.14.1
 
-FROM alpine:latest as build
+FROM alpine:3.13.5 as build
+# hadolint ignore=DL3018
+RUN apk add --no-cache bash curl openssl grep
 
-RUN apk add --update bash curl openssl grep
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 #
 # Terragrunt installer
 #
@@ -11,9 +13,9 @@ RUN TERRAGRUNT_VERSION=$(curl -i -s https://api.github.com/repos/gruntwork-io/te
 RUN chmod +x /bin/terragrunt
 
 # Cleanup ZIP files
-RUN rm -f *.zip
+RUN rm -f ./*.zip
 
-FROM htec/terraform:$VERSION
+FROM public.ecr.aws/htec/terraform:$VERSION
 COPY --from=build --chown=nonroot:nonroot /bin/terragrunt /bin/terragrunt
 USER nonroot
 WORKDIR /home/nonroot
