@@ -30,5 +30,5 @@ jobs:
           registry: public.ecr.aws
           username: ${{ secrets.HTEC_AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.HTEC_AWS_SECRET_ACCESS_KEY }}
-    - name: Build and Push the Docker image
-      run: make terraform-utils
+      - name: Build and Push the Docker image
+        run: make terraform-utils
