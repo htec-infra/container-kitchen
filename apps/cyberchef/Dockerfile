@@ -9,7 +9,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN REL=$(curl -ksL "https://api.github.com/repos/gchq/CyberChef/releases/latest" | jq -r '.tag_name') && \
     curl -s -L -O "https://github.com/gchq/CyberChef/releases/download/${REL}/CyberChef_${REL}.zip" && \
     unzip -u "CyberChef_${REL}.zip" && \
-    mv "CyberChef_*.html" index.html && \
+    mv CyberChef_*.html index.html && \
     rm *.zip
 
 FROM public.ecr.aws/htec/nginx:1.20.1
