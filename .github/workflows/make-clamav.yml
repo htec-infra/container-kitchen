@@ -29,7 +29,5 @@ jobs:
           registry: public.ecr.aws
           username: ${{ secrets.HTEC_AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.HTEC_AWS_SECRET_ACCESS_KEY }}
-      env:
-        AWS_REGION: eu-central-1
     - name: Build and Push the Docker image
       run: make clamav
