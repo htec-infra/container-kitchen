@@ -12,6 +12,7 @@ on:
     paths:
       - "apps/clamav/**"
       - "!**/README.md"
+  workflow_dispatch:
 
 jobs:
   build-and-push:
