@@ -12,16 +12,23 @@ on:
     paths:
       - "apps/pdf-generator/**"
       - "!**/README.md"
+  workflow_dispatch:
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
           username: ${{ secrets.HTEC_DOCKERHUB_USERNAME }}
           password: ${{ secrets.HTEC_DOCKERHUB_TOKEN }}
+      - name: Login to Public ECR
+        uses: docker/login-action@v1
+        with:
+          registry: public.ecr.aws
+          username: ${{ secrets.HTEC_AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.HTEC_AWS_SECRET_ACCESS_KEY }}
     - name: Build and Push the Docker image
       run: make pdf-generator
