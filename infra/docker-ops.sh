@@ -8,7 +8,7 @@ IMAGE_VERSION=$(cat apps/"${IMAGE_NAME}"/VERSION 2>/dev/null || echo "${2}")
 LOCAL_IMAGE="local/${IMAGE_NAME}:${IMAGE_VERSION}"
 
 # We want to push same images on multiple docker registries
-DOCKER_REPOS=("htec" "public.ecr.aws/htec")
+DOCKER_REPOS=("public.ecr.aws/htec")
 
 build() {
   docker build -t "${LOCAL_IMAGE}" --build-arg "VERSION=${IMAGE_VERSION}" "apps/${IMAGE_NAME}/"
