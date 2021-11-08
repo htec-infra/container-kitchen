@@ -41,7 +41,7 @@ RUN dotnet restore
 # Copy the source code into the workdir
 COPY . .
 
-# Publis the app, we have 2 flags here --runtime(https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) and slef-contained (https://docs.microsoft.com/en-us/dotnet/core/deploying/)
+# Publish the app, we have 2 flags here --runtime(https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) and slef-contained (https://docs.microsoft.com/en-us/dotnet/core/deploying/)
 RUN dotnet publish \
     --runtime linux-x64 \
     --self-contained true \
@@ -55,9 +55,6 @@ COPY --from=builder --chown=nonroot:nonroot /source/out /app/
 
 # Change working dir
 WORKDIR /app
-
-# Set desired user
-USER nonroot
 
 ENTRYPOINT ["./hello-world"]
 
