@@ -4,13 +4,13 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "apps/dotnet-5.0/**"
+      - "apps/dotnet5.0/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
     branches: [ master ]
     paths:
-      - "apps/dotnet-5.0/**"
+      - "apps/dotnet5.0/**"
       - "!**/README.md"
   workflow_dispatch:
 
