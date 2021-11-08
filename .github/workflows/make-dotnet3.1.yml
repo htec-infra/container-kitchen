@@ -1,14 +1,14 @@
-name: Make Terragrunt docker
+name: Make .NET 3.1
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/dotnet3.1/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/dotnet3.1/**"
       - "!**/README.md"
