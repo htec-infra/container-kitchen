@@ -1,12 +1,12 @@
 #!/bin/bash
 
 IMAGE_NAME=${1}
-
+IMAGE_NAME_REDUCED=${IMAGE_NAME%/*}
 # shellcheck disable=SC2210
 IMAGE_VERSION=$(cat apps/"${IMAGE_NAME}"/VERSION 2>/dev/null || echo "${2}")
 
-LOCAL_IMAGE="local/${IMAGE_NAME}:${IMAGE_VERSION}"
-
+LOCAL_IMAGE="local/${IMAGE_NAME_REDUCED}:${IMAGE_VERSION}"
+echo $LOCAL_IMAGE
 # We want to push same images on multiple docker registries
 DOCKER_REPOS=("public.ecr.aws/htec")
 
