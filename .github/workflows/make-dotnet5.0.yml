@@ -1,0 +1,29 @@
+name: Make Terragrunt docker
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - "apps/dotnet-5.0/**"
+      - "!**/README.md"
+  pull_request:
+    types: [closed]
+    branches: [ master ]
+    paths:
+      - "apps/dotnet-5.0/**"
+      - "!**/README.md"
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Public ECR
+        uses: docker/login-action@v1
+        with:
+          registry: public.ecr.aws
+          username: ${{ secrets.HTEC_AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.HTEC_AWS_SECRET_ACCESS_KEY }}
+      - name: Build and Push the Docker image
+        run: make dotnet5.0
