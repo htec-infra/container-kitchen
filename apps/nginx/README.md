@@ -19,7 +19,7 @@ docker run -it --rm -p 8080:8080 local/nginx:1.18.0
 ### From ECR
 
 ```
-docker run -it --rm -p 8080:8080 public.ecr.aws/htec/nginx:1.20.3
+docker run -it --rm -p 8080:8080 public.ecr.aws/htec/nginx:1.20.1
 ```
 
 Open your browser on http://localhost:8080/
