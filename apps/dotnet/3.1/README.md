@@ -7,8 +7,8 @@
 
 ### Local testing
 
-Image built using `docker-ops.sh` script has `local/dotnet3.1` tag, yet image is available locally only if you run 
-build as `LOCAL_TEST=true make dotnet3.1`.
+Image built using `docker-ops.sh` script has `local/REPONAME/dotnet3.1` tag, yet image is available locally only if you run 
+build as `DRY_RUN=true make dotnet3.1`.
 ```
 docker run -it --rm -p PORT:PORT local/dotnet:3.1
 ```

@@ -8,10 +8,10 @@ as user 1001, hence nginx is not accessible on port 80 but 8080 instead.
 
 ### Local testing
 
-Image built using `docker-ops.sh` script has `local/nginx` tag, yet image is available locally only if you run 
-build as `LOCAL_TEST=true make nginx`.
+Image built using `docker-ops.sh` script has `local/REPONAME/nginx` tag, yet image is available locally only if you run 
+build as `DRY_RUN=true make nginx`.
 ```
-docker run -it --rm -p 8080:8080 local/nginx:1.18.0
+docker run -it --rm -p 8080:8080 local/REPONAME/nginx:1.18.0
 ```
 
 ### From DockerHub

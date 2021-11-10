@@ -76,7 +76,6 @@ push_image(){
 }
 
 remove_image(){
-
   local DRY_RUN="$1"
   local IMAGE_NAME="$2"
 
