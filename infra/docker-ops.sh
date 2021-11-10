@@ -5,7 +5,7 @@ REPOSITORY_NAME=${1}
 FLAVOR_NAME=${2} # optional
 
 # Static vars
-DOCKER_REPOS=("public.ecr.aws/htec" "docker.hub/htec" "eu.gcr.io/htec")
+DOCKER_REPOS=("public.ecr.aws/htec")
 BASE_DIR="$PWD/apps"
 FULL_PATH=$BASE_DIR/$REPOSITORY_NAME/$FLAVOR_NAME
 SUBDIRS=$(find ${FULL_PATH} -maxdepth 1 -type d | wc -l)
