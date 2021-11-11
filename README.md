@@ -41,5 +41,5 @@ The script `infra/docker-ops.sh` is configured to clean up all images after buil
 in order to keep built image available after the script ended.
 
 ```shell
-$ DRY_RUN=true make <app_name> <flavor(if applicable)>
+$ DRY_RUN=true make <repo_name> <flavor(if applicable)>
 ```

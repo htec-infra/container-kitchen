@@ -8,7 +8,7 @@
 ### Local testing
 
 Image built using `docker-ops.sh` script has `local/REPONAME/dotnet6.0` tag, yet image is available locally only if you run 
-build as `DRY_RUN=true make dotnet6.0`.
+build as `DRY_RUN=true make dotnet6`.
 ```
 docker run -it --rm -p PORT:PORT local/dotnet:6.0
 ```

@@ -1,22 +1,22 @@
 # Distroless .NET docker image
 
 ## Overview
-.NET docker image is built on top of `base-debian10` distroless image. .NET binary is configured to run as nonroot user. Binary is copied from the official microsoft aspnet5.0 image.
+.NET docker image is built on top of `base-debian10` distroless image. .NET binary is configured to run as nonroot user. Binary is copied from the official microsoft aspnet3.1 image.
 
 ## Usage 
 
 ### Local testing
 
-Image built using `docker-ops.sh` script has `local/REPONAME/dotnet5.0` tag, yet image is available locally only if you run 
-build as `DRY_RUN=true make dotnet5.0`.
+Image built using `docker-ops.sh` script has `local/REPONAME/dotnet3.1` tag, yet image is available locally only if you run 
+build as `DRY_RUN=true make dotnet3`.
 ```
-docker run -it --rm -p PORT:PORT local/dotnet:5.0
+docker run -it --rm -p PORT:PORT local/dotnet:3.1
 ```
 
 ### From DockerHub
 
 ```
-docker run -it --rm -p PORT:PORT htec/dotnet:5.0
+docker run -it --rm -p PORT:PORT htec/dotnet:3.1
 ```
 
 ### Example
@@ -27,7 +27,7 @@ Dockerfile example:
 ```
 
 # We are going to use debian based images for the builder stage
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS builder
+FROM mcr.microsoft.com/dotnet/sdk:3.1-buster AS builder
 
 # Set working
 WORKDIR /source

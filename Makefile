@@ -27,15 +27,14 @@ clamav:
 pdf-generator:
 	./infra/docker-ops.sh pdf-generator
 
+.PHONY: dotnet3
+dotnet3:
+	./infra/docker-ops.sh dotnet 3
 
-.PHONY: dotnet
-dotnet3.1:
-	./infra/docker-ops.sh dotnet/3.1
+.PHONY: dotnet5
+dotnet5:
+	./infra/docker-ops.sh dotnet 5
 
-.PHONY: dotnet
-dotnet5.0:
-	./infra/docker-ops.sh dotnet/5.0
-
-.PHONY: dotnet
-dotnet6.0:
-	./infra/docker-ops.sh dotnet/6.0
+.PHONY: dotnet6
+dotnet6:
+	./infra/docker-ops.sh dotnet 6
