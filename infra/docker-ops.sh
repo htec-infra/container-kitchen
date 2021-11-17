@@ -5,7 +5,7 @@ REPOSITORY_NAME=${1}
 FLAVOR_NAME=${2} # optional
 
 # Static vars
-DOCKER_REPOS=("public.ecr.aws/htec" "eu.gcr.io/htec")
+DOCKER_REPOS=("public.ecr.aws/htec")
 DIR="apps/${REPOSITORY_NAME}/${FLAVOR_NAME}"
 IMAGE_VERSION=$(cat "${DIR}"/VERSION 2>/dev/null || echo "${3}")
 IMAGES=()
