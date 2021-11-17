@@ -9,12 +9,12 @@ as user 1001, hence the app is not accessible on port 80 but 8080 instead.
 ### Local testing
 
 > **NOTE:**
-Image is built using `docker-ops.sh` script has `local/REPONAME/cyberchef` tag, yet image is available locally only if you run
-build as `DRY_RUN=true make cyberchef`.
+Image is built using `docker-ops.sh` script has `local/cyberchef` tag, yet image is available locally only if you run
+build as `LOCAL_TEST=true make cyberchef`.
 
 
 ```
-docker run -it --rm -p 8080:8080 local/REPONAME/yberchef:latest
+docker run -it --rm -p 8080:8080 local/cyberchef:latest
 ```
 
 ### From DockerHub

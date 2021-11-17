@@ -5,11 +5,9 @@ REPOSITORY_NAME=${1}
 FLAVOR_NAME=${2} # optional
 
 # Static vars
-DOCKER_REPOS=("public.ecr.aws/htec")
-BASE_DIR="$PWD/apps"
-FULL_PATH=$BASE_DIR/$REPOSITORY_NAME/$FLAVOR_NAME
-SUBDIRS=$(find ${FULL_PATH} -maxdepth 1 -type d | wc -l)
-IMAGE_VERSION=$(cat "${FULL_PATH}"/VERSION 2>/dev/null || echo "${3}")
+DOCKER_REPOS=("public.ecr.aws/htec" "eu.gcr.io/htec")
+DIR="apps/${REPOSITORY_NAME}/${FLAVOR_NAME}"
+IMAGE_VERSION=$(cat "${DIR}"/VERSION 2>/dev/null || echo "${3}")
 IMAGES=()
 
 # Main function is responsible for checking if manadatory variable is provided
@@ -23,65 +21,68 @@ main(){
       "
     else
       for REPO in "${DOCKER_REPOS[@]}"; do
-        build_and_prepare_data
+        build_image $REPO $DIR
       done
   fi
-  # Wait for prepared data from previous function and proceed with the push and cleanup process.
-  push_image $IMAGES $DRY_RUN
-  remove_image $IMAGES $DRY_RUN
+  # # Wait for prepared data from previous function and proceed with the push and cleanup process.
+  push_image "$DRY_RUN"
+  remove_image "$DRY_RUN"
+  #echo ${IMAGES[@]}
 }
 
-# TO-DO
-# Improve logic of the function build_and_prepare_data
-# This functions is responsible for formating the given input and bulding the docker images.
-build_and_prepare_data() {
-    if [[ "${SUBDIRS}" -eq 1 ]]
-    then
-      for FOLDER in $(ls -d ${FULL_PATH}); do
-        IMAGE_NAME=$REPO/${REPOSITORY_NAME}:${IMAGE_VERSION}
-        build_image $IMAGE_NAME $FOLDER $DRY_RUN
-        # Append value to a variable
-        IMAGES+="${IMAGE_NAME};"
+build_image (){
+    local REPO=$1
+    local DIR=$2
+
+    DOCKERFILES=$(cd "$DIR"; find * -name '*Dockerfile')
+
+    if [ "$DRY_RUN" = "true" ] ; then
+          echo -e "     
+#####################################\n
+DRY_RUN is enabled, docker build command is:
+\n"
+      for i in ${DOCKERFILES[@]} ; do
+          # Take a directory where dockerfile is and take the basedir as path where the image will be built
+          CONTEXT="$(dirname "${i}")"
+          # Take a directory where dockerfile is and take the basedir, replace "//" with "-"
+          TAG=$(dirname "${i}" | tr "//" "-")
+          # Docker image name is assembled from input parameters, "${TAG#.}" and "sed -e 's|-$||g'" removed the dot(.) and - if the docker file is located in the root direcotry
+          IMAGE_NAME=$(echo "$REPO/$REPOSITORY_NAME:""$IMAGE_VERSION-""${TAG#.}" | sed -e 's|-$||g')
+          # Disable build procress
+          echo docker build -t "$IMAGE_NAME" -f "$DIR/$i" "$DIR/$CONTEXT"
+          # Append array to variable
+          IMAGES+=("$IMAGE_NAME\n")
       done
+
+# Zamneji DOCKER_REPOS sa REPO
     else
-      for FOLDER in $(ls -d ${FULL_PATH}/*/); do
-        if [ -f "${FOLDER}/Dockerfile" ]; then
-          IMAGE_NAME=$REPO/${REPOSITORY_NAME}:${IMAGE_VERSION}-$(basename "$FOLDER/")
-          build_image $IMAGE_NAME $FOLDER $DRY_RUN
-          # Append value to a variable
-          IMAGES+="${IMAGE_NAME};"
-        else
-          FOLDER=$(ls -d ${FULL_PATH})
-          IMAGE_NAME=$REPO/${REPOSITORY_NAME}:${IMAGE_VERSION}
-          build_image $IMAGE_NAME $FOLDER $DRY_RUN
-          # Append value to a variable
-          IMAGES+="${IMAGE_NAME};"
-        fi
+
+      for i in ${DOCKERFILES[@]} ; do
+          # Take a directory where dockerfile is and take the basedir as path where the image will be built
+          CONTEXT="$(dirname "${i}")"
+          # Take a directory where dockerfile is and take the basedir, replace "//" with "-"
+          TAG=$(dirname "${i}" | tr "//" "-")
+          # Docker image name is assembled from input parameters, "${TAG#.}" and "sed -e 's|-$||g'" removed the dot(.) and - if the docker file is located in the root direcotry
+          IMAGE_NAME=$(echo "$DOCKER_REPOS/$REPOSITORY_NAME:""$IMAGE_VERSION-""${TAG#.}" | sed -e 's|-$||g')
+          # Start the build process
+          docker build -t "$IMAGE_NAME" -f "$DIR/$i" "$DIR/$CONTEXT"
+          # Append array to variable
+          IMAGES+=("$IMAGE_NAME")
       done
+
+
     fi
-}
 
-build_image(){
-  local IMAGE_NAME="$1"
-  local FOLDER="$2"
-  local DRY_RUN="$3"
-
-  if [ "$DRY_RUN" = "true" ] ; then
-    docker build -t local/$IMAGE_NAME "$FOLDER/"
-  else
-    docker build -t $IMAGE_NAME "$FOLDER/"
-  fi
 }
 
 push_image(){
-  local IMAGES="$(echo $1 | tr ";" "\n")"
-  local DRY_RUN="$2"
-
+  local DRY_RUN="$1"
+  FORMAT=()
   if [ "$DRY_RUN" = "true" ] ; then
     echo -e "     
 #####################################\n
 DRY_RUN is enabled, push is skipped for image/s:
-local/$IMAGES \n
+"${IMAGES[@]}"\n
 #####################################
     "
   else
@@ -92,19 +93,18 @@ local/$IMAGES \n
 }
 
 remove_image(){
-  local IMAGES="$(echo $1 | tr ";" "\n")"
-  local DRY_RUN="$2"
-
+  local DRY_RUN="$1"
+  FORMAT=()
   if [ "$DRY_RUN" = "true" ] ; then
     echo -e "     
 #####################################\n
-DRY_RUN is enabled, push is skipped for image/s:
-local/$IMAGES \n
+DRY_RUN is enabled, remove is skipped for image/s:
+"${IMAGES[@]}"\n
 #####################################
     "
   else
-    for IMAGE in ${IMAGES[@]} ; do
-      docker rmi $IMAGE
+    for IMAGE in "${IMAGES[@]}" ; do
+      echo docker rmi "$IMAGE"
     done
   fi
 }
