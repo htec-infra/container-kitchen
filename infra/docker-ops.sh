@@ -24,10 +24,9 @@ main(){
         build_image $REPO $DIR
       done
   fi
-  # # Wait for prepared data from previous function and proceed with the push and cleanup process.
+  # Wait for prepared data from previous function and proceed with the push and cleanup process.
   push_image "$DRY_RUN"
   remove_image "$DRY_RUN"
-  #echo ${IMAGES[@]}
 }
 
 build_image (){
