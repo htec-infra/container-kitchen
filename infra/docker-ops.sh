@@ -44,14 +44,15 @@ build_image (){
         TAG=$(dirname "${FILE}" | tr "//" "-")
         # Docker image name is assembled from input parameters, "${TAG#.}" and "sed -e 's|-$||g'" remove the dot(.) and hyphen(-) if the docker file is located in the root direcotry
         IMAGE_NAME=$(echo "$DOCKER_REPOS/$REPOSITORY_NAME:""$IMAGE_VERSION-""${TAG#.}" | sed -e 's|-$||g')
-
+        # Build command
+        BUILD=("docker" "build" "-t" "$IMAGE_NAME" "-f" "$DIR/$FILE" "$DIR/$CONTEXT")
         if [ "$DRY_RUN" = "true" ] ; then
-          echo docker build -t "$IMAGE_NAME" -f "$DIR/$FILE" "$DIR/$CONTEXT"
+          echo "${BUILD[@]}"
           # Append array to variable with \n in order to escape for loop in push_image and remove_image
           IMAGES+=("$IMAGE_NAME\n")
         else
           # Start the build process
-          docker build -t "$IMAGE_NAME" -f "$DIR/$FILE" "$DIR/$CONTEXT"
+          "${BUILD[@]}"
           # Append array to variable
           IMAGES+=("$IMAGE_NAME")
         fi
