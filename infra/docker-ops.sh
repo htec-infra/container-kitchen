@@ -25,12 +25,12 @@ main(){
       done
   fi
   # Wait for prepared data from previous function and proceed with the push and cleanup process.
-  push_image "$DRY_RUN"
-  remove_image "$DRY_RUN"
+  push_image "${IMAGES[*]}"
+  remove_image "${IMAGES[*]}"
 }
 
 build_image (){
-    # Arguments
+    # Parameters
     local REPO=$1
     local DIR=$2
 
@@ -48,29 +48,26 @@ build_image (){
         BUILD=("docker" "build" "-t" "$IMAGE_NAME" "-f" "$DIR/$FILE" "$DIR/$CONTEXT")
         if [ "$DRY_RUN" = "true" ] ; then
           echo "${BUILD[@]}"
-          # Append array to variable with \n in order to escape for loop in push_image and remove_image
-          IMAGES+=("$IMAGE_NAME\n")
         else
           # Start the build process
           "${BUILD[@]}"
-          # Append array to variable
-          IMAGES+=("$IMAGE_NAME")
         fi
+        # Append array to variable
+        IMAGES+=("$IMAGE_NAME")
     done
-
 }
 
+
 push_image(){
-  # Argument
-  local DRY_RUN="$1"
+  # Parameters
+  local IMAGES=$1
 
   if [ "$DRY_RUN" = "true" ] ; then
-    echo -e "     
+    echo -e "
 #####################################\n
-DRY_RUN is enabled, push is skipped for image/s:
-"${IMAGES[@]}"\n
-#####################################
-    "
+DRY_RUN is enabled, push is skipped for image/s:\n"
+    format_image_names "${IMAGES[@]}"
+
   else
     for IMAGE in ${IMAGES[@]} ; do
       docker push $IMAGE
@@ -79,21 +76,27 @@ DRY_RUN is enabled, push is skipped for image/s:
 }
 
 remove_image(){
-  # Argument
-  local DRY_RUN="$1"
+  # Parameters
+  local IMAGES=$1
 
   if [ "$DRY_RUN" = "true" ] ; then
     echo -e "     
 #####################################\n
-DRY_RUN is enabled, remove is skipped for image/s:
-"${IMAGES[@]}"\n
-#####################################
-    "
+DRY_RUN is enabled, remove is skipped for image/s:\n"
+    format_image_names "${IMAGES[@]}"
+
   else
     for IMAGE in "${IMAGES[@]}" ; do
       docker rmi "$IMAGE"
     done
   fi
+}
+
+format_image_names(){
+  # Parameters
+  local IMAGES="$1"
+
+  echo "${IMAGES[@]}" | tr " " "\n"
 }
 
 main
