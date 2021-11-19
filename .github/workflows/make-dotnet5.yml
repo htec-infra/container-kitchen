@@ -1,4 +1,4 @@
-name: Make .NET 5.0
+name: Make .NET 5
 
 on:
   push:

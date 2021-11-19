@@ -1,4 +1,4 @@
-name: Make .NET 3.1
+name: Make .NET 3
 
 on:
   push:
