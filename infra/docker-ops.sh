@@ -1,42 +1,102 @@
 #!/bin/bash
 
-IMAGE_NAME=${1}
+# Input vars
+REPOSITORY_NAME=${1}
+FLAVOR_NAME=${2} # optional
 
-# shellcheck disable=SC2210
-IMAGE_VERSION=$(cat apps/"${IMAGE_NAME}"/VERSION 2>/dev/null || echo "${2}")
-
-LOCAL_IMAGE="local/${IMAGE_NAME}:${IMAGE_VERSION}"
-
-# We want to push same images on multiple docker registries
+# Static vars
 DOCKER_REPOS=("public.ecr.aws/htec")
+DIR="apps/${REPOSITORY_NAME}/${FLAVOR_NAME}"
+IMAGE_VERSION=$(cat "${DIR}"/VERSION 2>/dev/null || echo "${3}")
+IMAGES=()
 
-build() {
-  docker build -t "${LOCAL_IMAGE}" --build-arg "VERSION=${IMAGE_VERSION}" "apps/${IMAGE_NAME}/"
-}
-
-push() {
-  if [ "${LOCAL_TEST}" == "true" ]; then
-      echo "Skipping 'docker push' for local testing."
-      return
+# Main function is responsible for checking if manadatory variable is provided
+# If provided then loop through the docker repos and build an image for every repo
+main(){
+  if [ -z "$REPOSITORY_NAME" ] ; then
+      echo -e "     
+      #####################################\n
+      Mandatory argument is not provided\n
+      #####################################
+      "
+    else
+      for REPO in "${DOCKER_REPOS[@]}"; do
+        build_image $REPO $DIR
+      done
   fi
-  for REPO in "${DOCKER_REPOS[@]}"; do
-    NEW_IMAGE="$REPO/${IMAGE_NAME}:${IMAGE_VERSION}"
-    docker tag "local/${IMAGE_NAME}:${IMAGE_VERSION}" "${NEW_IMAGE}"
-    docker push "${NEW_IMAGE}"
-
-    # Remove tag after push
-    docker rmi "${NEW_IMAGE}"
-  done
+  # Wait for prepared data from previous function and proceed with the push and cleanup process.
+  push_image "${IMAGES[*]}"
+  remove_image "${IMAGES[*]}"
 }
 
-cleanup() {
-  if [ "${LOCAL_TEST}" == "true" ]; then
-      echo "Skipping cleanup"
+build_image (){
+    # Parameters
+    local REPO=$1
+    local DIR=$2
+
+    # Variables
+    DOCKERFILES=$(cd "$DIR"; find * -name '*Dockerfile')
+
+    for FILE in ${DOCKERFILES[@]} ; do
+        # Take a directory where dockerfile is and take the basedir as path where the image will be built
+        CONTEXT="$(dirname "${FILE}")"
+        # Take a directory where dockerfile is and take the basedir, replace "//" with "-"
+        TAG=$(dirname "${FILE}" | tr "//" "-")
+        # Docker image name is assembled from input parameters, "${TAG#.}" and "sed -e 's|-$||g'" remove the dot(.) and hyphen(-) if the docker file is located in the root direcotry
+        IMAGE_NAME=$(echo "$DOCKER_REPOS/$REPOSITORY_NAME:""$IMAGE_VERSION-""${TAG#.}" | sed -e 's|-$||g')
+        # Build command
+        BUILD=("docker" "build" "-t" "$IMAGE_NAME" "-f" "$DIR/$FILE" "$DIR/$CONTEXT")
+        if [ "$DRY_RUN" = "true" ] ; then
+          echo "${BUILD[@]}"
+        else
+          # Start the build process
+          "${BUILD[@]}"
+        fi
+        # Append array to variable
+        IMAGES+=("$IMAGE_NAME")
+    done
+}
+
+
+push_image(){
+  # Parameters
+  local IMAGES=$1
+
+  if [ "$DRY_RUN" = "true" ] ; then
+    echo -e "
+#####################################\n
+DRY_RUN is enabled, push is skipped for image/s:\n"
+    format_image_names "${IMAGES[@]}"
+
   else
-      docker rmi "${LOCAL_IMAGE}"
-  fi;
-
+    for IMAGE in ${IMAGES[@]} ; do
+      docker push $IMAGE
+    done
+  fi
 }
 
-build && push && cleanup
+remove_image(){
+  # Parameters
+  local IMAGES=$1
 
+  if [ "$DRY_RUN" = "true" ] ; then
+    echo -e "     
+#####################################\n
+DRY_RUN is enabled, remove is skipped for image/s:\n"
+    format_image_names "${IMAGES[@]}"
+
+  else
+    for IMAGE in "${IMAGES[@]}" ; do
+      docker rmi "$IMAGE"
+    done
+  fi
+}
+
+format_image_names(){
+  # Parameters
+  local IMAGES="$1"
+
+  echo "${IMAGES[@]}" | tr " " "\n"
+}
+
+main

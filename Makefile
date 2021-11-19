@@ -23,7 +23,18 @@ terraform-utils:
 clamav:
 	./infra/docker-ops.sh clamav
 
-
 .PHONY: pdf-generator
 pdf-generator:
 	./infra/docker-ops.sh pdf-generator
+
+.PHONY: dotnet3
+dotnet3:
+	./infra/docker-ops.sh dotnet 3
+
+.PHONY: dotnet5
+dotnet5:
+	./infra/docker-ops.sh dotnet 5
+
+.PHONY: dotnet6
+dotnet6:
+	./infra/docker-ops.sh dotnet 6

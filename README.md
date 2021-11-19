@@ -26,16 +26,20 @@ fulfilled and attacking surface is minimal.
 
 ## Development
 
+- [.NET-3.1](https://dotnet.microsoft.com/download/dotnet/3.1) - NET Core 3.1
+- [.NET-5.0](https://dotnet.microsoft.com/download/dotnet/5.0) - NET Core 5.0
+
 ### Prerequisites
 
 - [docker](https://docs.docker.com/engine/install/)
 - [pre-commit](https://pre-commit.com/#install)
+
 ### Usage
 
 > **NOTE:**
-The script `infra/docker-ops.sh` is configured to clean up all images after build. Run locally using `LOCAL_TEST=true` 
+The script `infra/docker-ops.sh` is configured to clean up all images after build. Run locally using `DRY_RUN=true` 
 in order to keep built image available after the script ended.
 
 ```shell
-$ LOCAL_TEST=true make <app_name>
+$ DRY_RUN=true make <repo_name> <flavor(if applicable)>
 ```
