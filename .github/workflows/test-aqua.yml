@@ -25,3 +25,4 @@ jobs:
           TRIVY_RUN_AS_PLUGIN: 'aqua'
           TRIGGERED_BY: 'PR'
           GITHUB_TOKEN: ${{ github.token }}
+
