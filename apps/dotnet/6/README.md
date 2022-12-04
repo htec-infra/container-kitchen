@@ -7,7 +7,7 @@
 
 ### Local testing
 
-Image built using `docker-ops.sh` script has `local/REPONAME/dotnet6.0` tag, yet image is available locally only if you run 
+Image built using `container-ops.sh` script has `local/REPONAME/dotnet6.0` tag, yet image is available locally only if you run 
 build as `DRY_RUN=true make dotnet6`.
 ```
 docker run -it --rm -p PORT:PORT local/dotnet:6.0
@@ -27,7 +27,7 @@ Dockerfile example:
 ```
 
 # We are going to use debian based images for the builder stage
-FROM mcr.microsoft.com/dotnet/sdk:6.0-buster-slim AS builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim AS builder
 
 # Set working
 WORKDIR /source
@@ -48,7 +48,7 @@ RUN dotnet publish \
     -c Release \
     -o out
 
-FROM DOTNET:VERSION
+FROM public.ecr.aws/htec/dotnet:6.0
 
 # First we need to copy the files into the directory, in that way we assign the permissions to the folder for the nonroot user
 COPY --from=builder --chown=nonroot:nonroot /source/out /app/
