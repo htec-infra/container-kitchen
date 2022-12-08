@@ -27,7 +27,7 @@ Dockerfile example:
 ```
 
 # We are going to use debian based images for the builder stage
-FROM mcr.microsoft.com/dotnet/sdk:6.0-buster-slim AS builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim AS builder
 
 # Set working
 WORKDIR /source
@@ -48,7 +48,7 @@ RUN dotnet publish \
     -c Release \
     -o out
 
-FROM DOTNET:VERSION
+FROM public.ecr.aws/htec/dotnet:6.0
 
 # First we need to copy the files into the directory, in that way we assign the permissions to the folder for the nonroot user
 COPY --from=builder --chown=nonroot:nonroot /source/out /app/
