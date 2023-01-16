@@ -40,5 +40,5 @@ dotnet6:
 	./infra/docker-ops.sh dotnet 6
 
 .PHONY: dotnet7
-dotnet6:
+dotnet7:
 	./infra/docker-ops.sh dotnet 7
