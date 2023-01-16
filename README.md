@@ -28,6 +28,8 @@ fulfilled and attacking surface is minimal.
 
 - [.NET-3.1](https://dotnet.microsoft.com/download/dotnet/3.1) - NET Core 3.1
 - [.NET-5.0](https://dotnet.microsoft.com/download/dotnet/5.0) - NET Core 5.0
+- [.NET-5.0](https://dotnet.microsoft.com/download/dotnet/6.0) - NET Core 6.0
+- [.NET-5.0](https://dotnet.microsoft.com/download/dotnet/7.0) - NET Core 7.0
 
 ### Prerequisites
 
