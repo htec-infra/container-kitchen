@@ -13,10 +13,10 @@ build as `DRY_RUN=true make dotnet6`.
 docker run -it --rm -p PORT:PORT local/dotnet:7.0
 ```
 
-### From DockerHub
+### From Public container registry
 
 ```
-docker run -it --rm -p PORT:PORT htec/dotnet:7.0
+docker run -it --rm -p PORT:PORT public.ecr.aws/htec/dotnet:7.0
 ```
 
 ### Example
