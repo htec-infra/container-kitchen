@@ -2,13 +2,13 @@ name: Make Terraform docker
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/terraform/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/terraform/**"
       - "!**/README.md"
