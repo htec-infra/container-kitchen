@@ -2,13 +2,13 @@ name: Make PDF-Generator alpine docker
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/pdf-generator/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/pdf-generator/**"
       - "!**/README.md"

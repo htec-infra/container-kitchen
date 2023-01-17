@@ -2,13 +2,13 @@ name: Make ClamAV alpine docker
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/clamav/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/clamav/**"
       - "!**/README.md"

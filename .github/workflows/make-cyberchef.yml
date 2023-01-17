@@ -2,13 +2,13 @@ name: Make Cyberchef docker
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/cyberchef/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/cyberchef/**"
       - "!**/README.md"

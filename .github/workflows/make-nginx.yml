@@ -2,13 +2,13 @@ name: Make Nginx docker
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/nginx/**"
       - "!**/README.md"
   pull_request:
     types: [closed]
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - "apps/nginx/**"
       - "!**/README.md"
