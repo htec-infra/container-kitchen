@@ -1,4 +1,4 @@
-# Rootless/Distroless Docker images
+# Rootless/Distroless Container images
 
 ## Overview
 Container images available on Docker Hub or similar Container registries are developed mainly for testing purposes. 
