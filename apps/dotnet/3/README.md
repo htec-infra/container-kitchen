@@ -7,17 +7,9 @@
 
 ### Local testing
 
-Image built using `docker-ops.sh` script has `local/REPONAME/dotnet3.1` tag, yet image is available locally only if you run 
+Image built using `container-ops.sh` script has `local/REPONAME/dotnet3.1` tag, yet image is available locally only if you run 
 build as `DRY_RUN=true make dotnet3`.
-```
-docker run -it --rm -p PORT:PORT local/dotnet:3.1
-```
 
-### From DockerHub
-
-```
-docker run -it --rm -p PORT:PORT htec/dotnet:3.1
-```
 
 ### Example
 
@@ -48,7 +40,7 @@ RUN dotnet publish \
     -c Release \
     -o out
 
-FROM DOTNET:VERSION
+FROM public.ecr.aws/htec/dotnet:3.1
 
 # First we need to copy the files into the directory, in that way we assign the permissions to the folder for the nonroot user
 COPY --from=builder --chown=nonroot:nonroot /source/out /app/
