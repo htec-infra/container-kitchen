@@ -7,17 +7,8 @@
 
 ### Local testing
 
-Image built using `docker-ops.sh` script has `local/REPONAME/dotnet7.0` tag, yet image is available locally only if you run 
+Image built using `container-ops.sh` script has `local/REPONAME/dotnet7.0` tag, yet image is available locally only if you run 
 build as `DRY_RUN=true make dotnet6`.
-```
-docker run -it --rm -p PORT:PORT local/dotnet:7.0
-```
-
-### From Public container registry
-
-```
-docker run -it --rm -p PORT:PORT public.ecr.aws/htec/dotnet:7.0
-```
 
 ### Example
 
