@@ -24,13 +24,13 @@ RUN mkdir -p /opt/var/cache/nginx && \
     cp -a --parents /lib/x86_64-linux-gnu/libpthread* /opt && \
     cp -a --parents /lib/x86_64-linux-gnu/libcrypt* /opt && \
     cp -a --parents /usr/lib/x86_64-linux-gnu/libssl.so.* /opt && \
+    cp -a --parents /usr/lib/x86_64-linux-gnu/libpcre2-8.so.* /opt && \
     cp -a --parents /usr/lib/x86_64-linux-gnu/libcrypto.so.* /opt && \
     cp /usr/share/zoneinfo/${TIME_ZONE:-ROC} /opt/etc/localtime
 
 FROM gcr.io/distroless/base-debian11:nonroot
 
 COPY --from=base /opt /
-COPY --from=base /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0 /usr/lib/x86_64-linux-gnu/
 
 STOPSIGNAL SIGTERM
 
