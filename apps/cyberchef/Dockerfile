@@ -12,6 +12,6 @@ RUN REL=$(curl -ksL "https://api.github.com/repos/gchq/CyberChef/releases/latest
     mv CyberChef_*.html index.html && \
     rm *.zip
 
-FROM public.ecr.aws/htec/nginx:1.22.1
+FROM public.ecr.aws/htec/nginx:1.24.0
 LABEL maintainer='DevSecOps HTEC <devsecops@htecgroup.com>'
 COPY --from=build /app/build /usr/share/nginx/html
