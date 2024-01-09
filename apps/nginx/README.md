@@ -3,7 +3,7 @@
 > and extend non-privileged file given in the example below
 
 ## Overview
-Nginx docker image is built on top of `base-debian11` distroless image. The main nginx process is configured to run 
+Nginx docker image is built on top of `base-debian12` distroless image. The main nginx process is configured to run 
 as user `nginx`, hence nginx is not accessible on port 80 but 8080 instead. 
 
 ## Usage 
@@ -13,13 +13,13 @@ as user `nginx`, hence nginx is not accessible on port 80 but 8080 instead.
 Image built using `container-ops.sh` script has `local/REPONAME/nginx` tag, yet image is available locally only if you run 
 build as `LOCAL_TEST=true make nginx`.
 ```
-docker run -it --rm -p 8080:8080 local/REPONAME/nginx:1.25.0
+docker run -it --rm -p 8080:8080 local/REPONAME/nginx:1.25.3
 ```
 
 ### From ECR
 
 ```
-docker run -it --rm -p 8080:8080 public.ecr.aws/htec/nginx:1.25.0
+docker run -it --rm -p 8080:8080 public.ecr.aws/htec/nginx:1.25.3
 ```
 
 Open your browser on http://localhost:8080/
