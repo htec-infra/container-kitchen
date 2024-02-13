@@ -2,13 +2,13 @@
 
 ## Overview
 
-.NET docker image is built on top of `base-debian12` distroless image. .NET binary is configured to run as nonroot user. Binary is copied from the official microsoft aspnet7.0 image.
+.NET docker image is built on top of `base-debian12` distroless image. .NET binary is configured to run as nonroot user. Binary is copied from the official microsoft aspnet8.0 image.
 
 ## Usage
 
 ### Local testing
 
-Image built using `container-ops.sh` script has `local/REPONAME/dotnet7.0` tag, yet image is available locally only if you run
+Image built using `container-ops.sh` script has `local/REPONAME/dotnet8.0` tag, yet image is available locally only if you run
 build as `DRY_RUN=true make dotnet8`.
 
 ### Example
@@ -19,7 +19,7 @@ Dockerfile example:
 ```
 
 # We are going to use debian based images for the builder stage
-FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim AS builder
+FROM mcr.microsoft.com/dotnet/sdk:8.0-bullseye-slim AS builder
 
 # Set working
 WORKDIR /source
@@ -40,7 +40,7 @@ RUN dotnet publish \
     -c Release \
     -o out
 
-FROM public.ecr.aws/htec/dotnet:7.0
+FROM public.ecr.aws/htec/dotnet:8.0
 
 # First we need to copy the files into the directory, in that way we assign the permissions to the folder for the nonroot user
 COPY --from=builder --chown=nonroot:nonroot /source/out /app/
