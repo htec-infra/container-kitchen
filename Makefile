@@ -42,3 +42,7 @@ dotnet6:
 .PHONY: dotnet7
 dotnet7:
 	./infra/container-ops.sh dotnet 7
+
+.PHONY: dotnet8
+dotnet8:
+	./infra/container-ops.sh dotnet 8
