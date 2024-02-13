@@ -1,4 +1,4 @@
-name: Make .NET 7
+name: Make .NET 8
 
 on:
   push:
