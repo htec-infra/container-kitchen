@@ -1,4 +1,4 @@
-ARG VERSION=1.25.3
+ARG VERSION=1.25.4
 
 FROM nginxinc/nginx-unprivileged:${VERSION} as base
 
